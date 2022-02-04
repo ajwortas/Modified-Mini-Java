@@ -36,43 +36,43 @@ Since this project's base is based off of the compiler make in my Compilers cour
 NOTE:   **bold** = language elements
         *italics*= defined element 
 
-Program ::= (*ClassDeclaration*|*InterfaceDeclaration*)\* eot
-ClassDeclaration ::= *Final* **class** *id* (**extends** *id* (, *id*)\*)? (**implements** *id* (, *id*)\*) **{** (*FieldDeclaration*|*MethodDeclaration*) **}**
-FieldDeclaration ::= *Visibility* *Access* *Final* *type* *id* **;**
-MethodDeclaration ::= *Visibility* *Access* *Final* (*type*|**void**) *id* **(** *ParameterList*? **) {** *Statement*\* **}** 
-Visibility ::= (**public** | **private** | **protected**)? 
-Access ::= **static**?
-Final ::= **final**?
-Type ::= (**int** | **boolean** | **char** | **lambda**<(*type* (**,** *type*)\*)?**:** *type*> | *id*)(**[]**)\*
-ParameterList ::= *Type* *id* (**,** *Type* *id*)\*
-ArgumentList ::= *Expression* (**,** *Expression*)\*
-Reference ::= (**this** | **super** | *id* | *Reference* **.** *id*) (**(** *ArgumentList* **)** | **[** *Expression* **]**)? 
-Statement ::=  **{** *Statement*\* **}**
-              |*Final*? *Type* *id* **=** *Expression* **;**
-              |*Reference* **=** *Expression* **;**
-              |*Expression* **;**
-              |*unop* *Reference* **;**
-              |**return** *Expression*?**;**
-              |**if (** *Expression* **)** *Statement* (**else** *Statement*)?
-              |**while (** *Expression* **)** *Statement*
-              |**do** *Statement* **while (** *Expression* **);**
-              |**for (** *Expression*? **;** *Expression*? **;** *Expression*? **)** *Statement*
-              |**for (** *Type* *id* **:** (*id*|*Expression*) **)** *Statement*
-              |**forall (int** *id* **:** *Expression* **)** *Statement*
-              |**free** *id* **;** 
-              |**barrier {**(**{** *Reference* *ArgumentList* **}**)\***};**
-              |**barrier {** *Reference* *ArgumentList* **};**
+Program ::= (*ClassDeclaration*|*InterfaceDeclaration*)\* eot\
+ClassDeclaration ::= *Final* **class** *id* (**extends** *id* (, *id*)\*)? (**implements** *id* (, *id*)\*) **{** (*FieldDeclaration*|*MethodDeclaration*) **}**\
+FieldDeclaration ::= *Visibility* *Access* *Final* *type* *id* **;**\
+MethodDeclaration ::= *Visibility* *Access* *Final* (*type*|**void**) *id* **(** *ParameterList*? **) {** *Statement*\* **}** \
+Visibility ::= (**public** | **private** | **protected**)? \
+Access ::= **static**?\
+Final ::= **final**?\
+Type ::= (**int** | **boolean** | **char** | **lambda**<(*type* (**,** *type*)\*)?**:** *type*> | *id*)(**[]**)\*\
+ParameterList ::= *Type* *id* (**,** *Type* *id*)\*\
+ArgumentList ::= *Expression* (**,** *Expression*)\*\
+Reference ::= (**this** | **super** | *id* | *Reference* **.** *id*) (**(** *ArgumentList* **)** | **[** *Expression* **]**)? \
+Statement ::=  **{** *Statement*\* **}**\
+              |*Final*? *Type* *id* **=** *Expression* **;**\
+              |*Reference* **=** *Expression* **;**\
+              |*Expression* **;**\
+              |*unop* *Reference* **;**\
+              |**return** *Expression*?**;**\
+              |**if (** *Expression* **)** *Statement* (**else** *Statement*)?\
+              |**while (** *Expression* **)** *Statement*\
+              |**do** *Statement* **while (** *Expression* **);**\
+              |**for (** *Expression*? **;** *Expression*? **;** *Expression*? **)** *Statement*\
+              |**for (** *Type* *id* **:** (*id*|*Expression*) **)** *Statement*\
+              |**forall (int** *id* **:** *Expression* **)** *Statement*\
+              |**free** *id* **;** \
+              |**barrier {**(**{** *Reference* *ArgumentList* **}**)\***};**\
+              |**barrier {** *Reference* *ArgumentList* **};**\
 
-Expression ::= *Expression* *binop* *Expression*
-              |*unop* *Expression*
-              |*Expression* **?** *Expression* **:** *Expression*
-              |**(** *Expression* **)**
-              |*Expression* **:** (*Expression* **:**)? *Expression*
-              |*num*|**true**|**false**|*StringLiteral*|**null**|*character*
-              |**curry** *Reference* *ArgumentList*
-              |**{** *Expression*\* **}**
-              |**new** (*id***(** *ArgumentList*? **)** | *Type***[** *Expression* **]** | **lambda** *type* **(***type*\***) -> {** *Statement* **}**)
+Expression ::= *Expression* *binop* *Expression*\
+              |*unop* *Expression*\
+              |*Expression* **?** *Expression* **:** *Expression*\
+              |**(** *Expression* **)**\
+              |*Expression* **:** (*Expression* **:**)? *Expression*\
+              |*num*|**true**|**false**|*StringLiteral*|**null**|*character*\
+              |**curry** *Reference* *ArgumentList*\
+              |**{** *Expression*\* **}**\
+              |**new** (*id***(** *ArgumentList*? **)** | *Type***[** *Expression* **]** | **lambda** *type* **(***type*\***) -> {** *Statement* **}**)\
 
-id ::= [a-zA-Z][a-zA-Z0-9_]*
+id ::= [a-zA-Z][a-zA-Z0-9_]*\
 
 
