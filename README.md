@@ -15,7 +15,7 @@ Lastly I plan to add a variety of parallel elements to the compiler and create a
  - [ ] Contextual Analysis (WIP)
  - [ ] Java stack machine model
  - [ ] Code Generation
- - [ ] Parallel Processing for Compilation
+ - [ ] Parallel Processing for Compilation\
 **Challenge/Bonus Goals**
  - [ ] Inherent classes / helper tools 
  - [ ] Support packages and imports
@@ -33,7 +33,7 @@ Free - a replacement for garbage collection until that gets implemented
 Since this project's base is based off of the compiler make in my Compilers course some style practices have carried over for ease of implementation and so I can better reference my initial project. For instance in the AST fields are made public and referenced directly I will likely update this to use Java Beans conventions.  
 
 ## Grammar 
-NOTE:   **bold** = language elements
+NOTE:   **bold** = language elements\
         *italics*= defined element 
 
 Program ::= (*ClassDeclaration*|*InterfaceDeclaration*)\* eot\
@@ -61,7 +61,7 @@ Statement ::=  **{** *Statement*\* **}**\
               |**forall (int** *id* **:** *Expression* **)** *Statement*\
               |**free** *id* **;** \
               |**barrier {**(**{** *Reference* *ArgumentList* **}**)\***};**\
-              |**barrier {** *Reference* *ArgumentList* **};**\
+              |**barrier {** *Reference* *ArgumentList* **};**
 
 Expression ::= *Expression* *binop* *Expression*\
               |*unop* *Expression*\
@@ -71,7 +71,7 @@ Expression ::= *Expression* *binop* *Expression*\
               |*num*|**true**|**false**|*StringLiteral*|**null**|*character*\
               |**curry** *Reference* *ArgumentList*\
               |**{** *Expression*\* **}**\
-              |**new** (*id***(** *ArgumentList*? **)** | *Type***[** *Expression* **]** | **lambda** *type* **(***type*\***) -> {** *Statement* **}**)\
+              |**new** (*id***(** *ArgumentList*? **)** | *Type***[** *Expression* **]** | **lambda** *type* **(***type*\***) -> {** *Statement* **}**)
 
 id ::= [a-zA-Z][a-zA-Z0-9_]*\
 
