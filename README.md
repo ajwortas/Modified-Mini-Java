@@ -24,9 +24,9 @@ Lastly I plan to add a variety of parallel elements to the compiler and create a
  - [ ] Simple garbage collection
 
 ## Non-Java Language Features
-Multiple inheritance - a class can extend multiple classes, in the case that both contain the same method signature the first one listed is chosen. 
-Hard Typed Function Variables - methods can take functions as veriables, static methods can be passed as functions 
-Parallel constructs - forall loop runs it's statement in parallel. Barrier statement runs the given functions in parallel. 
+Multiple inheritance - a class can extend multiple classes, in the case that both contain the same method signature the first one listed is chosen. \
+Hard Typed Function Variables - methods can take functions as veriables, static methods can be passed as functions \
+Parallel constructs - forall loop runs it's statement in parallel. Barrier statement runs the given functions in parallel. \
 Free - a replacement for garbage collection until that gets implemented
 
 ## A Note on Code Style
