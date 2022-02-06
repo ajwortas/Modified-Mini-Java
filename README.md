@@ -59,7 +59,7 @@ Statement ::=  **{** *Statement*\* **}**\
               |**for (** *Expression*? **;** *Expression*? **;** *Expression*? **)** *Statement*\
               |**for (** *Type* *id* **:** (*id*|*Expression*) **)** *Statement*\
               |**forall (int** *id* **:** *Expression* **)** *Statement*\
-              |**free** *id* **;** \
+              |**free** *Reference* **;** \
               |**barrier {**(**{** *Reference* *ArgumentList* **}**)\***};**\
               |**barrier {** *Reference* *ArgumentList* **};**
 
