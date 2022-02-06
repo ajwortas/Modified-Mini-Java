@@ -48,7 +48,7 @@ ParameterList ::= *Type* *id* (**,** *Type* *id*)\*\
 ArgumentList ::= *Expression* (**,** *Expression*)\*\
 Reference ::= (**this** | **super** | *id* | *Reference* **.** *id*) (**(** *ArgumentList* **)** | **[** *Expression* **]**)? \
 Statement ::=  **{** *Statement*\* **}**\
-              |*Final*? *Type* *id* **=** *Expression* **;**\
+              |*Final* *Type* *id* **=** *Expression* **;**\
               |*Reference* **=** *Expression* **;**\
               |*Expression* **;**\
               |*unop* *Reference* **;**\
