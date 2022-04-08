@@ -11,7 +11,7 @@ public class ScanningTask implements Task{
 		scan=s;
 	}
 	
-	public Token getCurrentResult() throws InterruptedException {
+	public synchronized Token getCurrentResult() throws InterruptedException {
 		
 		if(current==null) {
 			this.wait();
@@ -23,7 +23,7 @@ public class ScanningTask implements Task{
 	}
 	
 	@Override
-	public void runTask() {
+	public synchronized void runTask() {
 		current = scan.scan();
 		this.notify();
 	}

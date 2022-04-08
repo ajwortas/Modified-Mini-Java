@@ -34,7 +34,9 @@ import mmj.AbstractSyntaxTree.References.ThisRef;
 import mmj.AbstractSyntaxTree.Statements.AssignStmt;
 import mmj.AbstractSyntaxTree.Statements.BarrierStmt;
 import mmj.AbstractSyntaxTree.Statements.BlockStmt;
+import mmj.AbstractSyntaxTree.Statements.BreakStmt;
 import mmj.AbstractSyntaxTree.Statements.CallStmt;
+import mmj.AbstractSyntaxTree.Statements.ContinueStmt;
 import mmj.AbstractSyntaxTree.Statements.DoWhileStmt;
 import mmj.AbstractSyntaxTree.Statements.ForAllStmt;
 import mmj.AbstractSyntaxTree.Statements.ForEachStmt;
@@ -460,6 +462,18 @@ public class ContextualAnalysis implements ASTVisitor, KeyConstants {
 	@Override
 	public void visitForAllStmt(ForAllStmt stmt) {
 		visitForStatement(stmt);		
+	}
+	
+	@Override
+	public void visitBreakStatement(BreakStmt breakStmt) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitContinueStatement(ContinueStmt continueStmt) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	//EXPRESSIONS

@@ -1,0 +1,92 @@
+
+class Mancala {
+
+	public static void main(String [] args){
+		Mancala game = new Mancala();
+		lambda<int:void> printSquare = curry toPocket '[' ']';
+		game.start(printSquare);
+	}
+
+	public static void toPocketPrint(int val, char leftBracket, char rightBracket){
+		char tens=' '; 
+		char ones=' ';
+		if(val != 0){		
+			tens = val / 10 == 0 ? ' ' : val/10+48;
+			ones = val % 10 + 48;
+		}
+
+		//String concatination not currently in grammar
+		char [] combined = {leftBracket, tens, ones, rightBracket, '\t'};
+		System.out.print(new String(combined));
+	}
+
+
+	public Mancala(){
+		turn=false;
+		p1Mancala=0;
+		p2Mancala=0;
+		p1side={4,4,4,4,4,4};
+		p2side={4,4,4,4,4,4};
+	}
+
+	boolean turn;
+	int p1Mancala;
+	int p2Mancala;
+	int [] p1side;
+	int [] p2side;
+
+	public void start(lambda<int:void> print){
+		Scanner scan = new Scanner(System.in);
+		
+		for(;;){
+			
+			display(print);
+			
+			int index=scan.nextInt();
+			if(index==-1) break;
+			
+			--index;
+			
+			int value=-1;
+			if(!turn){
+				index=5-index;
+				value=p1side[index];
+				if(value==0)
+					continue;
+				
+				p1side[index]=0;
+			}else{
+				value=p2side[index];
+				if(value==0)
+					continue;
+				p2side[index]=0;
+			}
+			
+			processTurn(index,value,turn);
+
+			
+		}
+		scan.close();
+	}
+
+	private void display(lambda<int:void> print){
+		print(0);
+		for(int i=0;i<p1side.length;++i)
+			print(p2side[i]);
+		print(0);
+		System.out.println();		
+
+		print(p2Mancala);
+		System.out.print("\t\t\t\t\t\t\t");
+		print(p1Mancala);
+		System.out.println();
+
+		print(0);
+		for(int i=p1side.length-1;i>=0;--i)
+			print(p1side[i]);
+		print(0);
+		System.out.println();
+		
+	}
+
+}

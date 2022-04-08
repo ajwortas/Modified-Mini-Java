@@ -32,6 +32,8 @@ public enum TokenKind {
 		Do,
 		Forall,
 		Barrier,
+		Break,
+		Continue,
 	//Operators
 		Binop,
 		Assignment,

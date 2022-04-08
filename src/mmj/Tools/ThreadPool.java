@@ -20,10 +20,11 @@ public class ThreadPool {
 	public void setMinimumNumThreads(int num) {
 		while(threads.size()<num) {
 			String threadName = threadNaming+threads.size();
-			Thread t = new Thread(new TaskRunnable(this,threadName));
-			t.setName(threadName);
-			t.run();
-			threads.add(t);
+			Thread thread = new Thread(new TaskRunnable(this,threadName));
+			thread.setName(threadName);
+			threads.add(thread);
+			thread.start();
+			
 		}
 	}
 	

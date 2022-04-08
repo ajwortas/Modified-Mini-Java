@@ -39,6 +39,8 @@ public class KeywordMapping {
 		map.put("lambda", TokenKind.Lambda);
 		map.put("barrier", TokenKind.Barrier);
 		map.put("forall", TokenKind.Forall);
+		map.put("break", TokenKind.Break);
+		map.put("continue", TokenKind.Continue);
 	}
 	
 	public TokenKind getTokenKind(String key) {

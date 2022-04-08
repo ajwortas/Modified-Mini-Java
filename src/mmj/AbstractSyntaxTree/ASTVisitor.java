@@ -42,6 +42,8 @@ public interface ASTVisitor {
 	void visitFreeStatement(FreeStmt stmt);
 	void visitBarrierStmt(BarrierStmt barrierStmt);
 	void visitForAllStmt(ForAllStmt forAllStmt);
+	void visitBreakStatement(BreakStmt breakStmt);
+	void visitContinueStatement(ContinueStmt continueStmt);
 	
 	//Expressions
 	void visitBinaryExpression(BinaryExpr expr);

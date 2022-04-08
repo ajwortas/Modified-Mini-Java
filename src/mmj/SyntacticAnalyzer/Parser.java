@@ -59,14 +59,13 @@ public class Parser implements KeyConstants{
 		
 	}
 	
-	public Package parse() {
-		try {
-			token = scan.getCurrentResult();
-			pool.addTask(scan);
-			reporter.addTrace("Scanner made token: " + token);
-			return parseProgram();
-		}catch(Exception e){}
-		return null;
+	public Package parse() throws Exception{
+
+		token = scan.getCurrentResult();
+		pool.addTask(scan);
+		reporter.addTrace("Scanner made token: " + token);
+		return parseProgram();
+
 	}
 	
 	// (Class/Interface Declaration)* eot
@@ -167,7 +166,7 @@ public class Parser implements KeyConstants{
 		//Member Declarations
 		MethodDeclList mdl = new MethodDeclList();
 		FieldDeclList fdl = new FieldDeclList();
-		while(token.kind != TokenKind.OpenCurlyBracket) {
+		while(token.kind != TokenKind.CloseCurlyBracket) {
 			MemberDecl member = parseClassMember();
 			if(member instanceof MethodDecl) 
 				mdl.add((MethodDecl)member);
@@ -258,6 +257,7 @@ public class Parser implements KeyConstants{
 			case Period:
 				accept();
 				Identifier id=new Identifier(token);
+				acceptIt(TokenKind.ID);
 				ref = new QualRef(id,ref,id.posn);
 				continue nestedReferenceLoop;
 			case OpenSquareBracket:
@@ -267,9 +267,7 @@ public class Parser implements KeyConstants{
 				ref = new IxRef(ref,ixExpr,ref.posn);
 				continue nestedReferenceLoop;
 			case OpenParentheses:
-				accept();
 				ExpressionList argL = parseArgumentList();
-				acceptIt(TokenKind.CloseParentheses);
 				ref = new CallRef(ref,argL,ref.posn);
 				continue nestedReferenceLoop;
 			default:
@@ -287,6 +285,7 @@ public class Parser implements KeyConstants{
 	}
 	
 	private Statement parseStatementNoSemiColon() throws Exception {
+		SourcePosition sp = token.posn;
 		switch(token.kind) {
 		//For or for each loop
 		case For: case Forall:
@@ -297,6 +296,12 @@ public class Parser implements KeyConstants{
 		//While loop
 		case While:
 			return parseWhileLoop();
+		case Continue:
+			accept();
+			return new ContinueStmt(sp);
+		case Break:
+			accept();
+			return new BreakStmt(sp);
 		//If-else statement
 		case If:
 			return parseIfElse();
@@ -376,8 +381,13 @@ public class Parser implements KeyConstants{
 	}
 	
 	private Expression parseBiop(int level) throws Exception {
-		Expression first = level == precedent.length ? parseNonBiop() : parseBiop(level+1);
-		while(token.kind==TokenKind.Binop && containsSpelling(precedent[level])) {
+		
+		if(level == precedent.length) {
+			return parseNonBiop();
+		}
+		
+		Expression first = parseBiop(level+1);
+		while(token.kind==TokenKind.Binop || token.kind == TokenKind.Assignment && containsSpelling(precedent[level])) {
 			Operator op = new Operator(token);
 			accept();
 			Expression second = level == precedent.length ? parseNonBiop() : parseBiop(level+1);
@@ -449,7 +459,10 @@ public class Parser implements KeyConstants{
 		case Curry:
 			accept();
 			Reference ref = parseReference();
-			argL = parseArgumentList();
+			argL = new ExpressionList();
+			argL.add(parseExpression());
+			while(token.kind != TokenKind.SemiColon)
+				argL.add(parseExpression());
 			return new CurryExpr(ref,argL,posn);
 		case OpenCurlyBracket: 
 			accept();
@@ -461,9 +474,11 @@ public class Parser implements KeyConstants{
 			}
 			argL = new ExpressionList();
 			argL.add(expr);
-			while(token.kind!=TokenKind.CloseCurlyBracket)
+			while(token.kind==TokenKind.Comma) {
+				accept();
 				argL.add(parseExpression());
-			accept();
+			}
+			acceptIt(TokenKind.CloseCurlyBracket);
 			return new ArrayLiteral(argL, posn);
 		default:
 			parseError("Token "+token.spelling+" does not appear to properly be part of a expression");
@@ -759,7 +774,14 @@ public class Parser implements KeyConstants{
 			while(token.kind!=TokenKind.Colon)
 				tl.add(parseType());
 			accept();
-			TypeDenoter retType = parseType();
+			TypeDenoter retType;
+			if(token.kind == TokenKind.Void) {
+				retType = voidType;
+				accept();
+			}else {
+				retType = parseType();
+			}
+			
 			acceptItWithSpelling(TokenKind.Binop,">");
 			type = new MethodType(retType,tl,posn);
 			break;
@@ -918,7 +940,7 @@ public class Parser implements KeyConstants{
 	}
 	
 	private void parseError(String e) throws SyntaxException {
-		reporter.reportError("Parse error: " + e);
+		reporter.reportError("Parse error: " + e + " at: " + token.posn);
 		reporter.addTrace(threadName+" has found an error");
 		pTrace();
 		throw new SyntaxException();
